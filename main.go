@@ -1,4 +1,4 @@
-package main
+package textToSpeech
 
 import (
 	"fmt"
@@ -13,6 +13,10 @@ import (
 	"github.com/gopxl/beep/v2"
 	"github.com/gopxl/beep/v2/speaker"
 )
+
+func speakInit() {
+	createFolderIfNotExist("speech")
+}
 
 func speak(text string) {
 	language := detectLanguage(text)

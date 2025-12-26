@@ -1,4 +1,4 @@
-package main
+package textToSpeech
 
 import (
 	"encoding/json"
