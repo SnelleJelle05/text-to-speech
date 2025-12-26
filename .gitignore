@@ -1,0 +1,7 @@
+speech/
+.idea/
+.vscode/
+.DS_Store
+dist/
+.env
+.env.local
