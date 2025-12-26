@@ -6,7 +6,6 @@ import (
 	"os"
 	"regexp"
 	"strings"
-	"time"
 )
 
 type LanguageDetectionData struct {
@@ -21,8 +20,12 @@ func detectLanguage(text string) string {
 	language := "en"
 	words := strings.Split(text, " ")
 
+	globalSameWordCounter := 0
+
 	dirs, _ := os.ReadDir("languages")
 	for _, dir := range dirs {
+		localSameWordCounter := 0
+
 		file, err := os.Open("languages/" + dir.Name())
 		if err != nil {
 			panic(err)
@@ -40,10 +43,19 @@ func detectLanguage(text string) string {
 			word = removeSpecialCharacters(word)
 			for _, jsonWord := range jsonData.Words {
 				if strings.ToLower(jsonWord) == strings.ToLower(word) {
-					language = jsonData.Language
+					localSameWordCounter++
 				}
 			}
 		}
+
+		// Check if the local counter is higher than the global counter
+		// this ensures we get the language with the most matching words
+		if localSameWordCounter > globalSameWordCounter {
+			globalSameWordCounter = localSameWordCounter
+			language = jsonData.Language
+			fmt.Println(language)
+		}
+
 	}
 
 	return language
@@ -56,10 +68,4 @@ func removeSpecialCharacters(str string) string {
 	}
 
 	return re.ReplaceAllString(str, "")
-}
-
-func nameGenerator(language string) string {
-	currentTime := time.Now().UnixNano()
-
-	return fmt.Sprintf("%v_%v", language, currentTime)
 }
