@@ -1,19 +1,17 @@
 # textToSpeech (Go)
 
-Detect language from simple wordlists, fetch Google Translate TTS MP3, and play it locally.
+Detect language from wordlists, fetch Google Translate TTS MP3, play locally.
 
 ## Install
-
 ```bash
 go get <module>/tts
 ```
 
-## Usage
-
+## Use
 ```go
 package main
 
-import "..."
+import textToSpeech "<module>/tts"
 
 func main() {
 	textToSpeech.SpeakInit()
@@ -21,18 +19,9 @@ func main() {
 }
 ```
 
-## Folders
-
-- `./speech/` (auto-created) — downloaded `*.mp3`
-- `./languages/` (required) — JSON wordlists for detection
-
-Example `languages/english.json`:
-
+## Needs
+- `./speech/` (auto-created)
+- `./languages/` (required) JSON wordlists, e.g.
 ```json
 { "language": "en", "words": ["the", "and", "you", "hello"] }
 ```
-
-## Notes
-
-- Max input length: **200** chars (panics if exceeded)
-- Uses an unofficial Google TTS endpoint; network/rate-limit issues may occur
