@@ -14,11 +14,11 @@ import (
 	"github.com/gopxl/beep/v2/speaker"
 )
 
-func speakInit() {
+func SpeakInit() {
 	createFolderIfNotExist("speech")
 }
 
-func speak(text string) {
+func Speak(text string) {
 	language := detectLanguage(text)
 	fileName := writeMp3File(text, language)
 
