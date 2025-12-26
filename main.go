@@ -14,13 +14,6 @@ import (
 	"github.com/gopxl/beep/v2/speaker"
 )
 
-func main() {
-	// Create necessary folders in here so don't go in loop
-	createFolderIfNotExist("speech")
-	text := "wazaa mesnen het werkt!"
-	speak(text)
-}
-
 func speak(text string) {
 	language := detectLanguage(text)
 	fileName := writeMp3File(text, language)
