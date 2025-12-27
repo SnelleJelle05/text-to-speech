@@ -3,6 +3,9 @@ package textToSpeech
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	url2 "net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -53,12 +56,25 @@ func detectLanguage(text string) string {
 		if localSameWordCounter > globalSameWordCounter {
 			globalSameWordCounter = localSameWordCounter
 			language = jsonData.Language
-			fmt.Println(language)
 		}
 
 	}
 
 	return language
+}
+
+func writeMp3File(text string, language string) io.Reader {
+	if len(text) > 200 {
+		panic("Text length exceeds the maximum 200 characters")
+	}
+
+	url := fmt.Sprintf("http://translate.google.com/translate_tts?client=tw-ob&tl=%s&q=%s&textlen=%d", language, url2.QueryEscape(text), len(text))
+	responseMp3File, err := http.Get(url)
+	if err != nil {
+		panic(err)
+	}
+
+	return responseMp3File.Body
 }
 
 func removeSpecialCharacters(str string) string {

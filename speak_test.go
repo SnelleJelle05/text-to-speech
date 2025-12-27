@@ -5,5 +5,5 @@ import (
 )
 
 func TestSpeak(t *testing.T) {
-	Speak("why is the sky blue?")
+	Speak("waarom is de lucht blauw")
 }
