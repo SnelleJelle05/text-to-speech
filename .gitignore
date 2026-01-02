@@ -1,7 +1,9 @@
-speech/
 .idea/
 .vscode/
 .DS_Store
 dist/
 .env
 .env.local
+./python/.idea/
+./python/__pycache__/
+./python/.venv/
